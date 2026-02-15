@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sip N Chill - Café & Lounge</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Courgette&family=Quicksand:wght@400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            background-image: 
+                linear-gradient(135deg, rgba(15, 32, 39, 0.9) 0%, rgba(32, 58, 67, 0.9) 50%, rgba(44, 83, 100, 0.9) 100%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><pattern id="leaves" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M10,50 Q20,30 30,50 T50,50" fill="%23059669" opacity="0.1"/><circle cx="70" cy="30" r="8" fill="%2310b981" opacity="0.1"/><path d="M80,70 Q85,60 90,70 T100,70" fill="%23047857" opacity="0.1"/></pattern></defs><rect width="1200" height="800" fill="url(%23leaves)"/></svg>');
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(5, 150, 105, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(6, 182, 212, 0.1) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: linear-gradient(to bottom, #f0fdf4, #ecfdf5, #d1fae5);
+            min-height: 100vh;
+            box-shadow: 0 0 60px rgba(16, 185, 129, 0.4);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero {
+            background: 
+                linear-gradient(135deg, rgba(6, 95, 70, 0.95), rgba(4, 120, 87, 0.9), rgba(16, 185, 129, 0.85)),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%23059669" width="1200" height="400"/><circle cx="100" cy="50" r="30" fill="%2310b981" opacity="0.3"/><circle cx="300" cy="150" r="40" fill="%2310b981" opacity="0.2"/><circle cx="900" cy="100" r="35" fill="%23047857" opacity="0.3"/><path d="M0,300 Q300,250 600,300 T1200,300 L1200,400 L0,400 Z" fill="%23065f46" opacity="0.3"/></svg>');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 60px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '🍹';
+            position: absolute;
+            font-size: 120px;
+            opacity: 0.15;
+            top: -20px;
+            left: 10%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .hero::after {
+            content: '🍸';
+            position: absolute;
+            font-size: 100px;
+            opacity: 0.15;
+            bottom: 20px;
+            right: 15%;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .hero h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 4em;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero p {
+            font-family: 'Courgette', cursive;
+            font-size: 1.5em;
+            opacity: 0.95;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            font-size: 2.5em;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-icons span {
+            animation: bounce 2s ease-in-out infinite;
+            display: inline-block;
+        }
+        
+        .hero-icons span:nth-child(1) { animation-delay: 0s; }
+        .hero-icons span:nth-child(2) { animation-delay: 0.2s; }
+        .hero-icons span:nth-child(3) { animation-delay: 0.4s; }
+        .hero-icons span:nth-child(4) { animation-delay: 0.6s; }
+        .hero-icons span:nth-child(5) { animation-delay: 0.8s; }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: linear-gradient(to right, #d1fae5, #a7f3d0, #6ee7b7);
+            border-bottom: 3px solid #10b981;
+            overflow-x: auto;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-tab {
+            flex: 1;
+            min-width: 150px;
+            padding: 18px 20px;
+            text-align: center;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            font-size: 17px;
+            font-weight: 600;
+            font-family: 'Quicksand', sans-serif;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+            color: #065f46;
+        }
+
+        .nav-tab:hover {
+            background: rgba(16, 185, 129, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+            border-bottom: 4px solid #059669;
+            color: #047857;
+            font-weight: 700;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px 30px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section-title {
+            font-family: 'Courgette', cursive;
+            font-size: 2.5em;
+            color: #065f46;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 4px solid #10b981;
+            text-shadow: 2px 2px 4px rgba(16, 185, 129, 0.2);
+        }
+
+        /* AI Assistant Styles */
+        .chat-container {
+            height: 500px;
+            overflow-y: auto;
+            border: 3px solid #10b981;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            background: linear-gradient(to bottom, #f0fdf4, #ffffff);
+            box-shadow: inset 0 2px 10px rgba(16, 185, 129, 0.1);
+        }
+
+        .message {
+            margin-bottom: 20px;
+            padding: 15px 20px;
+            border-radius: 20px;
+            max-width: 75%;
+            animation: slideIn 0.4s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.ai {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            margin-right: auto;
+            border-bottom-left-radius: 5px;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .message.user {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            color: #065f46;
+            margin-left: auto;
+            border-bottom-right-radius: 5px;
+            font-weight: 600;
+        }
+
+        .message img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .image-grid img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        input[type="text"], input[type="email"], input[type="tel"], input[type="date"], input[type="time"], input[type="number"], textarea, select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #10b981;
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: 'Quicksand', sans-serif;
+            transition: all 0.3s;
+            background: linear-gradient(to bottom, #ffffff, #f0fdf4);
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #059669;
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+            background: white;
+        }
+
+        button {
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 17px;
+            font-weight: 700;
+            font-family: 'Quicksand', sans-serif;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Form Styles */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+            color: #065f46;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        /* Card Styles */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #ffffff, #f0fdf4);
+            border: 3px solid #10b981;
+            border-radius: 20px;
+            padding: 25px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+        }
+
+        .card:hover {
+            transform: translateY(-8px) rotate(1deg);
+            box-shadow: 0 12px 30px rgba(16, 185, 129, 0.4);
+            border-color: #059669;
+        }
+
+        .card h3 {
+            font-family: 'Courgette', cursive;
+            color: #065f46;
+            margin-bottom: 15px;
+            font-size: 1.6em;
+        }
+
+        .card p {
+            color: #047857;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .price {
+            color: #059669;
+            font-size: 2em;
+            font-weight: bold;
+            margin: 15px 0;
+            font-family: 'Courgette', cursive;
+            text-shadow: 2px 2px 4px rgba(16, 185, 129, 0.2);
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            transition: background 0.3s;
+        }
+
+        .menu-item:hover {
+            background: #f8f9fa;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .menu-item-info h4 {
+            color: #065f46;
+            margin-bottom: 5px;
+            font-family: 'Courgette', cursive;
+            font-size: 1.1em;
+        }
+
+        .menu-item-info p {
+            color: #047857;
+            font-size: 0.9em;
+        }
+
+        .menu-item-price {
+            color: #059669;
+            font-weight: bold;
+            font-size: 1.3em;
+            font-family: 'Courgette', cursive;
+        }
+
+        .add-btn {
+            padding: 8px 16px;
+            font-size: 14px;
+            margin-left: 15px;
+        }
+
+        .cart {
+            background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 30px;
+            border: 3px solid #10b981;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 2px solid #a7f3d0;
+        }
+
+        .cart-total {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #065f46;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 3px solid #10b981;
+            font-family: 'Courgette', cursive;
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+            text-align: center;
+            animation: slideIn 0.5s;
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .loading {
+            text-align: center;
+            color: #059669;
+            padding: 20px;
+            font-size: 1.1em;
+            font-weight: 700;
+        }
+
+        .spinner {
+            border: 4px solid #d1fae5;
+            border-top: 4px solid #10b981;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .space-option {
+            background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+            border: 3px solid #10b981;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .space-option:hover {
+            border-color: #059669;
+            transform: scale(1.03) rotate(1deg);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        .space-option.selected {
+            border-color: #047857;
+            background: linear-gradient(135deg, #a7f3d0, #6ee7b7);
+            box-shadow: 0 8px 25px rgba(5, 150, 105, 0.4);
+            transform: scale(1.05);
+        }
+
+        .checkbox-group {
+            margin: 20px 0;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .checkbox-item:hover {
+            background: #e9ecef;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            cursor: pointer;
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .quick-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            color: #065f46;
+            border: 2px solid #10b981;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: 'Quicksand', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .quick-btn:hover {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>🍹 Sip N Chill 🍸</h1>
+            <p>Tropical Drinks & Good Vibes - Where Every Sip is Paradise</p>
+            <div class="hero-icons">
+                <span>🍹</span>
+                <span>🍸</span>
+                <span>🍺</span>
+                <span>🍷</span>
+                <span>🥤</span>
+            </div>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('assistant')">AI Assistant</button>
+            <button class="nav-tab" onclick="showTab('reservations')">Book Table</button>
+            <button class="nav-tab" onclick="showTab('parties')">Party Space</button>
+            <button class="nav-tab" onclick="showTab('catering')">Catering</button>
+            <button class="nav-tab" onclick="showTab('delivery')">Food Delivery</button>
+        </div>
+
+        <!-- AI Assistant Tab -->
+        <div id="assistant" class="tab-content active">
+            <h2 class="section-title">AI Assistant</h2>
+            <p style="margin-bottom: 20px; color: #666;">Ask me anything about reservations, menus, parties, or delivery!</p>
+            
+            <div class="quick-actions">
+                <button class="quick-btn" onclick="askQuestion('Show me images of your cocktails')">🍹 View Cocktails</button>
+                <button class="quick-btn" onclick="askQuestion('Show me your mocktails and non-alcoholic drinks')">🥤 View Mocktails</button>
+                <button class="quick-btn" onclick="askQuestion('What beer and wine do you have?')">🍺 Beer & Wine</button>
+                <button class="quick-btn" onclick="askQuestion('Show me pictures of your bar food')">🍔 Bar Food</button>
+                <button class="quick-btn" onclick="askQuestion('I want to book a table for 4 people')">📅 Book Table</button>
+                <button class="quick-btn" onclick="askQuestion('What are your party packages?')">🎉 Party Info</button>
+            </div>
+
+            <div class="chat-container" id="chatContainer"></div>
+            
+            <div class="input-group">
+                <input type="text" id="userInput" placeholder="Ask me anything..." onkeypress="handleKeyPress(event)">
+                <button onclick="sendMessage()" id="sendBtn">Send</button>
+            </div>
+        </div>
+
+        <!-- Reservations Tab -->
+        <div id="reservations" class="tab-content">
+            <h2 class="section-title">Book a Table</h2>
+            
+            <div class="card" style="margin-bottom: 25px; background: linear-gradient(135deg, #ecfdf5, #d1fae5);">
+                <h3>📋 Reservation Information</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 15px;">
+                    <div>
+                        <h4 style="color: #059669; margin-bottom: 8px; font-family: 'Courgette', cursive;">Hours</h4>
+                        <p style="margin: 5px 0;">Mon-Thu: 8am-10pm</p>
+                        <p style="margin: 5px 0;">Fri-Sat: 8am-11pm</p>
+                        <p style="margin: 5px 0;">Sunday: 9am-9pm</p>
+                    </div>
+                    <div>
+                        <h4 style="color: #059669; margin-bottom: 8px; font-family: 'Courgette', cursive;">Seating Options</h4>
+                        <p style="margin: 5px 0;">• Indoor tables</p>
+                        <p style="margin: 5px 0;">• Outdoor patio</p>
+                        <p style="margin: 5px 0;">• Cozy booths</p>
+                        <p style="margin: 5px 0;">• Bar seating</p>
+                    </div>
+                    <div>
+                        <h4 style="color: #059669; margin-bottom: 8px; font-family: 'Courgette', cursive;">Good to Know</h4>
+                        <p style="margin: 5px 0;">🎉 Complimentary dessert for birthdays/anniversaries</p>
+                        <p style="margin: 5px 0;">👶 Kids welcome with high chairs</p>
+                        <p style="margin: 5px 0;">⚠️ Groups 8+: 48hr notice required</p>
+                        <p style="margin: 5px 0;">📅 Cancel 24hrs in advance</p>
+                    </div>
+                </div>
+            </div>
+            
+            <form id="reservationForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="resName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="resEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" id="resPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Number of Guests</label>
+                        <input type="number" id="resGuests" min="1" max="20" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" id="resDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Time</label>
+                        <input type="time" id="resTime" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Seating Preference</label>
+                        <select id="resSeating">
+                            <option>No Preference</option>
+                            <option>Indoor Table</option>
+                            <option>Outdoor Patio</option>
+                            <option>Cozy Booth</option>
+                            <option>Bar Seating</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Special Requests</label>
+                    <textarea id="resNotes" rows="3" placeholder="Special occasion? Birthday? Anniversary? Dietary requirements? Let us know!"></textarea>
+                </div>
+                
+                <button type="submit">Book Table</button>
+                <div id="resSuccess"></div>
+            </form>
+        </div>
+
+        <!-- Party Space Tab -->
+        <div id="parties" class="tab-content">
+            <h2 class="section-title">Reserve Party Space</h2>
+            
+            <div class="card" style="margin-bottom: 25px; background: linear-gradient(135deg, #ecfdf5, #d1fae5);">
+                <h3>✨ What's Included in All Spaces</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
+                    <p>✓ Tables & Chairs</p>
+                    <p>✓ Sound System</p>
+                    <p>✓ WiFi Access</p>
+                    <p>✓ Dedicated Staff</p>
+                    <p>✓ Setup & Cleanup</p>
+                    <p>✓ 1hr Setup Time</p>
+                </div>
+                <h4 style="color: #059669; margin-top: 20px; margin-bottom: 10px; font-family: 'Courgette', cursive;">🎨 Premium Add-Ons Available</h4>
+                <p style="margin: 5px 0;">• DJ Service: $200</p>
+                <p style="margin: 5px 0;">• Professional Photographer: $150/hour</p>
+                <p style="margin: 5px 0;">• Custom Decorations: Starting at $100</p>
+                <p style="margin: 5px 0;">• Carving Station: $200</p>
+                <p style="margin: 5px 0;">• Live Pasta Station: $250</p>
+                <p style="margin-top: 15px; font-size: 0.9em; color: #047857;">💰 50% deposit required to book (refundable up to 2 weeks before event)</p>
+            </div>
+            
+            <div class="card-grid">
+                <div class="space-option" onclick="selectSpace('lounge')">
+                    <h3>🛋️ Lounge Area</h3>
+                    <p>Perfect for intimate gatherings</p>
+                    <p><strong>Capacity:</strong> Up to 25 people</p>
+                    <p style="margin-top: 10px; color: #666; font-size: 0.9em;">✓ Projector screen • Cozy lighting • Connects to outdoor patio</p>
+                    <div class="price">$200/4 hours</div>
+                </div>
+                
+                <div class="space-option" onclick="selectSpace('main')">
+                    <h3>🎉 Main Hall</h3>
+                    <p>Ideal for larger celebrations</p>
+                    <p><strong>Capacity:</strong> Up to 75 people</p>
+                    <p style="margin-top: 10px; color: #666; font-size: 0.9em;">✓ Stage area • Dance floor • Customizable lighting • Full bar access</p>
+                    <div class="price">$500/4 hours</div>
+                </div>
+                
+                <div class="space-option" onclick="selectSpace('rooftop')">
+                    <h3>🌟 Rooftop Terrace</h3>
+                    <p>Exclusive outdoor experience</p>
+                    <p><strong>Capacity:</strong> Up to 50 people</p>
+                    <p style="margin-top: 10px; color: #666; font-size: 0.9em;">✓ String lights • Heaters • City views • Outdoor bar</p>
+                    <div class="price">$400/4 hours</div>
+                </div>
+            </div>
+
+            <form id="partyForm" style="margin-top: 30px;">
+                <input type="hidden" id="selectedSpace">
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" id="partyName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="partyEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" id="partyPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Expected Guests</label>
+                        <input type="number" id="partyGuests" min="10" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Event Date</label>
+                        <input type="date" id="partyDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Start Time</label>
+                        <input type="time" id="partyTime" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Event Type</label>
+                    <select id="eventType">
+                        <option>Birthday Party</option>
+                        <option>Corporate Event</option>
+                        <option>Wedding Reception</option>
+                        <option>Anniversary</option>
+                        <option>Other Celebration</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Special Requirements</label>
+                    <textarea id="partyNotes" rows="3" placeholder="Tell us about your event..."></textarea>
+                </div>
+                
+                <button type="submit">Reserve Space</button>
+                <div id="partySuccess"></div>
+            </form>
+        </div>
+
+        <!-- Catering Tab -->
+        <div id="catering" class="tab-content">
+            <h2 class="section-title">Catering Options</h2>
+            
+            <div class="card" style="margin-bottom: 25px; background: linear-gradient(135deg, #ecfdf5, #d1fae5);">
+                <h3>📦 Catering Information</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 15px;">
+                    <div>
+                        <h4 style="color: #059669; margin-bottom: 8px; font-family: 'Courgette', cursive;">Package Details</h4>
+                        <p style="margin: 5px 0;">🍽️ Serves 25-30 people</p>
+                        <p style="margin: 5px 0;">📈 Can scale up for larger events</p>
+                        <p style="margin: 5px 0;">🚚 Delivery included (10 miles)</p>
+                        <p style="margin: 5px 0;">🍴 Serving utensils included</p>
+                    </div>
+                    <div>
+                        <h4 style="color: #059669; margin-bottom: 8px; font-family: 'Courgette', cursive;">Dietary Options</h4>
+                        <p style="margin: 5px 0;">✓ Vegetarian</p>
+                        <p style="margin: 5px 0;">✓ Vegan</p>
+                        <p style="margin: 5px 0;">✓ Gluten-free</p>
+                        <p style="margin: 5px 0;">✓ Nut-free</p>
+                    </div>
+                    <div>
+                        <h4 style="color: #059669; margin-bottom: 8px; font-family: 'Courgette', cursive;">Important</h4>
+                        <p style="margin: 5px 0;">📅 Order 3 days in advance</p>
+                        <p style="margin: 5px 0;">📝 Custom menus: 1 week notice</p>
+                        <p style="margin: 5px 0;">🎯 Setup service: +$75</p>
+                        <p style="margin: 5px 0;">🔥 Chafing dishes included</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <h3>🥗 Appetizer Package</h3>
+                    <p>Perfect starters for your event</p>
+                    <p style="font-size: 0.9em; color: #7e22ce; font-weight: 600;">Serves 25-30 people</p>
+                    <ul style="margin: 15px 0; padding-left: 20px; color: #666;">
+                        <li>Spring Rolls (50 pcs)</li>
+                        <li>Cheese Platter</li>
+                        <li>Veggie Tray</li>
+                        <li>Bruschetta (40 pcs)</li>
+                    </ul>
+                    <div class="price">$150</div>
+                    <button onclick="addCatering('Appetizer Package', 150)">Add to Order</button>
+                </div>
+
+                <div class="card">
+                    <h3>🍕 Main Course Package</h3>
+                    <p>Hearty meals for your guests</p>
+                    <p style="font-size: 0.9em; color: #7e22ce; font-weight: 600;">Serves 25-30 people</p>
+                    <ul style="margin: 15px 0; padding-left: 20px; color: #666;">
+                        <li>Pasta Bar (3 types)</li>
+                        <li>Grilled Chicken</li>
+                        <li>Vegetarian Lasagna</li>
+                        <li>Side Salads</li>
+                    </ul>
+                    <div class="price">$350</div>
+                    <button onclick="addCatering('Main Course Package', 350)">Add to Order</button>
+                </div>
+
+                <div class="card">
+                    <h3>🍰 Dessert Package</h3>
+                    <p>Sweet endings to remember</p>
+                    <p style="font-size: 0.9em; color: #7e22ce; font-weight: 600;">Serves 25-30 people</p>
+                    <ul style="margin: 15px 0; padding-left: 20px; color: #666;">
+                        <li>Assorted Cakes</li>
+                        <li>Cookies & Brownies</li>
+                        <li>Fruit Tarts</li>
+                        <li>Ice Cream Bar</li>
+                    </ul>
+                    <div class="price">$200</div>
+                    <button onclick="addCatering('Dessert Package', 200)">Add to Order</button>
+                </div>
+
+                <div class="card">
+                    <h3>🥤 Beverage Package</h3>
+                    <p>Keep everyone refreshed</p>
+                    <p style="font-size: 0.9em; color: #7e22ce; font-weight: 600;">Serves 25-30 people</p>
+                    <ul style="margin: 15px 0; padding-left: 20px; color: #666;">
+                        <li>Coffee & Tea Station</li>
+                        <li>Fresh Juices</li>
+                        <li>Soft Drinks</li>
+                        <li>Sparkling Water</li>
+                    </ul>
+                    <div class="price">$100</div>
+                    <button onclick="addCatering('Beverage Package', 100)">Add to Order</button>
+                </div>
+            </div>
+
+            <div class="cart" id="cateringCart" style="display: none;">
+                <h3>Your Catering Order</h3>
+                <div id="cateringItems"></div>
+                <div class="cart-total">Total: $<span id="cateringTotal">0</span></div>
+                
+                <form id="cateringForm" style="margin-top: 25px;">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="tel" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Event Date</label>
+                            <input type="date" required>
+                        </div>
+                    </div>
+                    <button type="submit">Place Catering Order</button>
+                </form>
+                <div id="cateringSuccess"></div>
+            </div>
+        </div>
+
+        <!-- Delivery Tab -->
+        <div id="delivery" class="tab-content">
+            <h2 class="section-title">Food Delivery</h2>
+            
+            <div class="card" style="margin-bottom: 25px; background: linear-gradient(135deg, #ecfdf5, #d1fae5);">
+                <h3>🚚 Delivery Information</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
+                    <div>
+                        <p style="margin: 5px 0;"><strong>Delivery Hours:</strong> 10am-9pm daily</p>
+                        <p style="margin: 5px 0;"><strong>Delivery Time:</strong> 30-45 minutes</p>
+                    </div>
+                    <div>
+                        <p style="margin: 5px 0;"><strong>Delivery Zone:</strong> 5 mile radius</p>
+                        <p style="margin: 5px 0;"><strong>Minimum Order:</strong> $15</p>
+                    </div>
+                    <div>
+                        <p style="margin: 5px 0;"><strong>Delivery Fee:</strong> $5</p>
+                        <p style="margin: 5px 0; color: #059669; font-weight: 700;"><strong>FREE on orders $50+</strong></p>
+                    </div>
+                    <div>
+                        <p style="margin: 5px 0;">📱 Track via text updates</p>
+                        <p style="margin: 5px 0;">🚪 Contactless delivery available</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 style="color: #065f46; margin-bottom: 20px; font-family: 'Courgette', cursive; font-size: 2em;">🍹 Drink Menu</h3>
+            
+            <div class="card" style="margin-bottom: 25px;">
+                <h3>🍸 Alcoholic Cocktails</h3>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>🌴 Tropical Mai Tai</h4>
+                        <p>Rum, orange curaçao, lime juice, orgeat syrup</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <span class="menu-item-price">$12.00</span>
+                        <button class="add-btn" onclick="addToCart('Tropical Mai Tai', 12.00)">Add</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>🥥 Piña Colada</h4>
+                        <p>White rum, coconut cream, pineapple juice</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <span class="menu-item-price">$11.00</span>
+                        <button class="add-btn" onclick="addToCart('Piña Colada', 11.00)">Add</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>🍋 Mojito</h4>
+                        <p>White rum, lime, mint, soda water, sugar</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <span class="menu-item-price">$10.50</span>
+                        <button class="add-btn" onclick="addToCart('Mojito', 10.50)">Add</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>🍓 Strawberry Daiquiri</h4>
+                        <p>Rum, fresh strawberries, lime juice, simple syrup</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <span class="menu-item-price">$11.50</span>
+                        <button class="add-btn" onclick="addToCart('Strawberry Daiquiri', 11.50)">Add</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>🍹 Margarita</h4>
+                        <p>Tequila, triple sec, lime juice, salt rim</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <span class="menu-item-price">$10.00</span>
+                        <button class="add-btn" onclick="addToCart('Margarita', 10.00)">Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-bottom: 25px;">
+                <h3>🍺 Beer & Wine</h3>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>🍺 Craft Beer Selection</h4>
+                        <p>Rotating local and imported craft beers</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <span class="menu-item-price">$7.00</span>
+                        <button class="add-btn" onclick="addToCart('Craft Beer', 7.00)">Add</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>🍷 House Wine (Red/White)</h4>
+                        <p>Carefully selected wines by the glass</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <span class="menu-item-price">$9.00</span>
+                        <button class="add-btn" onclick="addToCart('House Wine', 9.00)">Add</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-bottom: 25px;">
+                <h3>🥤 Non-Alcoholic Mocktails & Drinks</h3>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>🌺 Virgin Piña Colada</h4>
+                        <p>Coconut cream, pineapple juice, fresh cream</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <span class="menu-item-price">$7.50</span>
+                        <button class="add-btn" onclick="addToCart('Virgin Piña Colada', 7.50)">Add</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>🍓 Strawberry Lemonade</h4>
+                        <p>Fresh strawberries, lemon juice, sparkling water</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <span class="menu-item-price">$6.00</span>
+                        <button class="add-btn" onclick="addToCart('Strawberry Lemonade', 6.00)">Add</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>🥭 Mango Passion Refresher</h4>
+                        <p>Fresh mango, passion fruit, mint, soda</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <span class="menu-item-price">$6.50</span>
+                        <button class="add-btn" onclick="addToCart('Mango Passion Refresher', 6.50)">Add</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>🍋 Mint Cucumber Cooler</h4>
+                        <p>Cucumber, fresh mint, lime, tonic water</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <span class="menu-item-price">$5.50</span>
+                        <button class="add-btn" onclick="addToCart('Mint Cucumber Cooler', 5.50)">Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-bottom: 25px;">
+                <h3>☕ Coffee & Tea</h3>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Espresso</h4>
+                        <p>Rich and bold Italian espresso</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <span class="menu-item-price">$4.50</span>
+                        <button class="add-btn" onclick="addToCart('Espresso', 4.50)">Add</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Cappuccino</h4>
+                        <p>Perfectly balanced with steamed milk</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <span class="menu-item-price">$5.50</span>
+                        <button class="add-btn" onclick="addToCart('Cappuccino', 5.50)">Add</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Iced Latte</h4>
+                        <p>Smooth espresso over ice with milk</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <span class="menu-item-price">$6.00</span>
+                        <button class="add-btn" onclick="addToCart('Iced Latte', 6.00)">Add</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Herbal Tea Selection</h4>
+                        <p>Chamomile, peppermint, green tea, Earl Grey</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <span class="menu-item-price">$4.00</span>
+                        <button class="add-btn" onclick="addToCart('Herbal Tea', 4.00)">Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-bottom: 25px;">
+                <h3>🍹 Fresh Smoothies</h3>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Tropical Paradise Smoothie</h4>
+                        <p>Mango, pineapple, banana, coconut milk</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <span class="menu-item-price">$8.00</span>
+                        <button class="add-btn" onclick="addToCart('Tropical Paradise Smoothie', 8.00)">Add</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Berry Blast Smoothie</h4>
+                        <p>Strawberry, blueberry, raspberry, yogurt</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <span class="menu-item-price">$7.50</span>
+                        <button class="add-btn" onclick="addToCart('Berry Blast Smoothie', 7.50)">Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-bottom: 25px;">
+                <h3>🍔 Bar Bites & Food</h3>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Avocado Toast</h4>
+                        <p>Fresh avocado on sourdough with cherry tomatoes</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <span class="menu-item-price">$9.50</span>
+                        <button class="add-btn" onclick="addToCart('Avocado Toast', 9.50)">Add</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Club Sandwich</h4>
+                        <p>Triple-decker with turkey, bacon, and veggies</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <span class="menu-item-price">$12.00</span>
+                        <button class="add-btn" onclick="addToCart('Club Sandwich', 12.00)">Add</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Caesar Salad</h4>
+                        <p>Crisp romaine with parmesan and croutons</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <span class="menu-item-price">$10.00</span>
+                        <button class="add-btn" onclick="addToCart('Caesar Salad', 10.00)">Add</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Margherita Flatbread</h4>
+                        <p>Fresh mozzarella, basil, and tomato sauce</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <span class="menu-item-price">$11.50</span>
+                        <button class="add-btn" onclick="addToCart('Margherita Flatbread', 11.50)">Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🍰 Desserts</h3>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Chocolate Brownie</h4>
+                        <p>Warm fudgy brownie with vanilla ice cream</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <span class="menu-item-price">$6.50</span>
+                        <button class="add-btn" onclick="addToCart('Chocolate Brownie', 6.50)">Add</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <h4>Cheesecake</h4>
+                        <p>New York style with berry compote</p>
+                    </div>
+                    <div style="display: flex; align-items: center;">
+                        <span class="menu-item-price">$7.50</span>
+                        <button class="add-btn" onclick="addToCart('Cheesecake', 7.50)">Add</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cart" id="deliveryCart" style="display: none; margin-top: 30px;">
+                <h3>Your Order</h3>
+                <div id="cartItems"></div>
+                <div class="cart-total">Total: $<span id="cartTotal">0</span></div>
+                
+                <form id="deliveryForm" style="margin-top: 25px;">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="tel" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Delivery Address</label>
+                        <textarea id="deliveryAddress" rows="3" required placeholder="Enter your full delivery address"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Delivery Instructions</label>
+                        <textarea rows="2" placeholder="Any special instructions for delivery?"></textarea>
+                    </div>
+                    
+                    <button type="submit">Place Order</button>
+                </form>
+                <div id="deliverySuccess"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cart and state management
+        let deliveryCart = [];
+        let cateringCart = [];
+        let conversationHistory = [];
+
+        // Initialize chat
+        window.onload = function() {
+            addAIMessage("Hello! Welcome to Sip N Chill! 🎉 I'm here to help you with reservations, party bookings, catering, or food delivery. What can I do for you today?");
+        };
+
+        // Tab switching
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.nav-tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // AI Assistant Functions
+        function addAIMessage(message, images = null) {
+            const chatContainer = document.getElementById('chatContainer');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'message ai';
+            msgDiv.innerHTML = message;
+            
+            if (images && images.length > 0) {
+                const imageGrid = document.createElement('div');
+                imageGrid.className = 'image-grid';
+                imageGrid.style.marginTop = '15px';
+                images.forEach(imgUrl => {
+                    const img = document.createElement('img');
+                    img.src = imgUrl;
+                    img.alt = 'Food/Drink Image';
+                    img.style.width = '100%';
+                    img.style.height = '150px';
+                    img.style.objectFit = 'cover';
+                    img.style.borderRadius = '8px';
+                    img.style.boxShadow = '0 2px 6px rgba(0,0,0,0.2)';
+                    imageGrid.appendChild(img);
+                });
+                msgDiv.appendChild(imageGrid);
+            }
+            
+            chatContainer.appendChild(msgDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function addUserMessage(message) {
+            const chatContainer = document.getElementById('chatContainer');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'message user';
+            msgDiv.textContent = message;
+            chatContainer.appendChild(msgDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function askQuestion(question) {
+            document.getElementById('userInput').value = question;
+            sendMessage();
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            addUserMessage(message);
+            input.value = '';
+            
+            const sendBtn = document.getElementById('sendBtn');
+            sendBtn.disabled = true;
+            sendBtn.textContent = 'Thinking...';
+            
+            conversationHistory.push({
+                role: 'user',
+                content: message
+            });
+            
+            try {
+                const response = await fetch('https://api.anthropic.com/v1/messages', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        model: 'claude-sonnet-4-20250514',
+                        max_tokens: 1000,
+                        messages: [
+                            {
+                                role: 'user',
+                                content: `You are a helpful AI assistant for Sip N Chill, a café and lounge located at 123 Main Street, Downtown. Help customers with:
+
+RESERVATIONS:
+- Hours: Mon-Thu 8am-10pm, Fri-Sat 8am-11pm, Sun 9am-9pm
+- Seating: Indoor tables, outdoor patio, cozy booths, bar seating
+- Large parties (8+): Need 48 hour advance notice
+- Peak hours: Fri-Sat 6pm-9pm (reservations recommended)
+- Cancellation: 24 hours in advance
+- Special: Complimentary dessert for birthdays/anniversaries
+- Kids welcome with high chairs and kids menu
+
+PARTY SPACES:
+- Lounge Area: $200/4hrs (up to 25 people) - Projector, cozy lighting, patio access
+- Main Hall: $500/4hrs (up to 75 people) - Stage, dance floor, lighting, full bar
+- Rooftop Terrace: $400/4hrs (up to 50 people) - String lights, heaters, city views, outdoor bar
+- All include: Tables, chairs, sound system, WiFi, staff, setup/cleanup, 1hr setup time
+- Add-ons: DJ ($200), Photographer ($150/hr), Decorations ($100+), Carving Station ($200), Pasta Station ($250)
+- Deposit: 50% required, refundable up to 2 weeks before
+
+CATERING:
+- Packages serve 25-30 people (scalable)
+- Appetizer Package: $150 - Spring rolls, cheese platter, veggie tray, bruschetta
+- Main Course Package: $350 - Pasta bar, grilled chicken, vegetarian lasagna, salads
+- Dessert Package: $200 - Cakes, cookies, brownies, fruit tarts, ice cream
+- Beverage Package: $100 - Coffee/tea, juices, soft drinks, sparkling water
+- Dietary: Vegetarian, vegan, gluten-free, nut-free available
+- Custom menus: 1 week notice needed
+- Delivery included within 10 miles
+- Setup service: +$75
+- Order deadline: 3 days before event
+
+DELIVERY MENU:
+Alcoholic Cocktails: Tropical Mai Tai ($12), Piña Colada ($11), Mojito ($10.50), Strawberry Daiquiri ($11.50), Margarita ($10)
+Beer & Wine: Craft Beer ($7), House Wine - Red/White ($9)
+Non-Alcoholic Mocktails: Virgin Piña Colada ($7.50), Strawberry Lemonade ($6), Mango Passion Refresher ($6.50), Mint Cucumber Cooler ($5.50)
+Coffee & Tea: Espresso ($4.50), Cappuccino ($5.50), Iced Latte ($6), Herbal Tea Selection ($4)
+Smoothies: Tropical Paradise Smoothie ($8), Berry Blast Smoothie ($7.50)
+Bar Bites: Avocado Toast ($9.50), Club Sandwich ($12), Caesar Salad ($10), Margherita Flatbread ($11.50)
+Desserts: Chocolate Brownie ($6.50), Cheesecake ($7.50)
+
+DELIVERY INFO:
+- Zone: 5 mile radius
+- Hours: 10am-9pm daily
+- Fee: $5 (FREE on orders $50+)
+- Time: 30-45 minutes average
+- Minimum: $15
+- Track via text, contactless available
+
+GENERAL INFO:
+- Free WiFi for all customers
+- Parking: Street parking and lot behind building
+- Pet-friendly patio
+- Weekly events: Open mic Wednesdays, Live jazz Fridays
+- Loyalty: Buy 10 drinks, get 1 free
+- Gift cards available
+- Private meeting rooms: $25/hour
+- Barista classes: $45/person monthly
+
+IMPORTANT: If the user asks about food, drinks, or menu items (like "show me images of coffee", "what does the avocado toast look like", "pictures of desserts", etc.), respond with your text answer, then on a NEW LINE add: [SHOW_IMAGES: item1, item2, item3] where you list the specific items they asked about.
+
+For beverage requests, use: tropical mai tai, piña colada, mojito, margarita, daiquiri, cocktails, beer, wine, virgin piña colada, lemonade, mocktail, smoothie, espresso, cappuccino, latte, iced latte, coffee, tea
+For food requests, use: avocado toast, club sandwich, caesar salad, flatbread, pasta, spring rolls, cheese
+For dessert requests, use: chocolate brownie, cheesecake, cake
+
+Examples:
+- User asks "show me your cocktails" → Respond with cocktail info, then add on new line: [SHOW_IMAGES: tropical mai tai, piña colada, mojito, margarita]
+- User asks "what mocktails do you have with images" → Describe mocktails, then add: [SHOW_IMAGES: virgin piña colada, lemonade, mocktail]
+- User asks "show me beer and wine" → Describe drinks, then add: [SHOW_IMAGES: beer, wine]
+- User asks "show me all your alcoholic drinks" → Describe drinks, then add: [SHOW_IMAGES: cocktails, beer, wine, mojito]
+
+Always add [SHOW_IMAGES: ...] when they ask to see, view, show pictures/images/photos of food/drinks.
+
+Be friendly, concise, and helpful. Here's the conversation:
+${conversationHistory.map(msg => `${msg.role}: ${msg.content}`).join('\n')}
+
+Provide a helpful response:`
+                            }
+                        ]
+                    })
+                });
+                
+                const data = await response.json();
+                let aiResponse = data.content[0].text;
+                
+                conversationHistory.push({
+                    role: 'assistant',
+                    content: aiResponse
+                });
+                
+                // Check if response includes image request
+                const imageMatch = aiResponse.match(/\[SHOW_IMAGES:(.*?)\]/);
+                let images = null;
+                
+                if (imageMatch) {
+                    const items = imageMatch[1].split(',').map(s => s.trim().toLowerCase());
+                    images = items.map(item => getMenuItemImage(item)).filter(Boolean);
+                    aiResponse = aiResponse.replace(/\[SHOW_IMAGES:.*?\]/, '').trim();
+                }
+                
+                addAIMessage(aiResponse, images);
+            } catch (error) {
+                addAIMessage("I apologize, but I'm having trouble connecting right now. Please try using the tabs above to make reservations, book party spaces, order catering, or request delivery!");
+            }
+            
+            sendBtn.disabled = false;
+            sendBtn.textContent = 'Send';
+        }
+
+        // Image database for menu items
+        function getMenuItemImage(item) {
+            const imageDatabase = {
+                // Cocktails
+                'mai tai': 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400',
+                'tropical mai tai': 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400',
+                'piña colada': 'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=400',
+                'pina colada': 'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=400',
+                'mojito': 'https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=400',
+                'daiquiri': 'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=400',
+                'strawberry daiquiri': 'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=400',
+                'margarita': 'https://images.unsplash.com/photo-1612528443702-f6741f70a049?w=400',
+                'cocktail': 'https://images.unsplash.com/photo-1536935338788-846bb9981813?w=400',
+                'cocktails': 'https://images.unsplash.com/photo-1536935338788-846bb9981813?w=400',
+                // Beer & Wine
+                'beer': 'https://images.unsplash.com/photo-1608270586620-248524c67de9?w=400',
+                'craft beer': 'https://images.unsplash.com/photo-1608270586620-248524c67de9?w=400',
+                'wine': 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400',
+                'house wine': 'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400',
+                // Mocktails
+                'virgin piña colada': 'https://images.unsplash.com/photo-1546171753-97d7676e4602?w=400',
+                'virgin pina colada': 'https://images.unsplash.com/photo-1546171753-97d7676e4602?w=400',
+                'strawberry lemonade': 'https://images.unsplash.com/photo-1523677011781-c91d1bbe2f8d?w=400',
+                'lemonade': 'https://images.unsplash.com/photo-1523677011781-c91d1bbe2f8d?w=400',
+                'mango passion refresher': 'https://images.unsplash.com/photo-1563227812-0ea4c22e6cc8?w=400',
+                'mint cucumber cooler': 'https://images.unsplash.com/photo-1587223962930-cb7f31384c19?w=400',
+                'mocktail': 'https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?w=400',
+                // Coffee & Tea
+                'espresso': 'https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=400',
+                'cappuccino': 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=400',
+                'latte': 'https://images.unsplash.com/photo-1561882468-9110e03e0f78?w=400',
+                'iced latte': 'https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=400',
+                'coffee': 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=400',
+                'tea': 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400',
+                'herbal tea': 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400',
+                // Smoothies
+                'smoothie': 'https://images.unsplash.com/photo-1505252585461-04db1eb84625?w=400',
+                'tropical paradise smoothie': 'https://images.unsplash.com/photo-1505252585461-04db1eb84625?w=400',
+                'berry blast smoothie': 'https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=400',
+                'fruit smoothie': 'https://images.unsplash.com/photo-1505252585461-04db1eb84625?w=400',
+                // Food
+                'avocado toast': 'https://images.unsplash.com/photo-1588137378633-dea1336ce1e2?w=400',
+                'toast': 'https://images.unsplash.com/photo-1588137378633-dea1336ce1e2?w=400',
+                'club sandwich': 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=400',
+                'sandwich': 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=400',
+                'caesar salad': 'https://images.unsplash.com/photo-1546793665-c74683f339c1?w=400',
+                'salad': 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400',
+                'flatbread': 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400',
+                'margherita flatbread': 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400',
+                'pizza': 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400',
+                'chocolate brownie': 'https://images.unsplash.com/photo-1607920591413-4ec007e70023?w=400',
+                'brownie': 'https://images.unsplash.com/photo-1607920591413-4ec007e70023?w=400',
+                'cheesecake': 'https://images.unsplash.com/photo-1533134242443-d4144ff46f3e?w=400',
+                'cake': 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400',
+                'dessert': 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=400',
+                'pasta': 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400',
+                'spring rolls': 'https://images.unsplash.com/photo-1625398407796-82650a8c135f?w=400',
+                'appetizer': 'https://images.unsplash.com/photo-1541529086526-db283c563270?w=400',
+                'cheese': 'https://images.unsplash.com/photo-1452195100486-9cc805987862?w=400',
+                'juice': 'https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=400'
+            };
+            
+            return imageDatabase[item] || null;
+        }
+
+        // Reservation Form
+        document.getElementById('reservationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('resName').value;
+            const guests = document.getElementById('resGuests').value;
+            const date = document.getElementById('resDate').value;
+            const time = document.getElementById('resTime').value;
+            
+            document.getElementById('resSuccess').innerHTML = `
+                <div class="success-message">
+                    <h3>✅ Reservation Confirmed!</h3>
+                    <p>Thank you, ${name}! Your table for ${guests} is booked for ${date} at ${time}.</p>
+                    <p>We'll send a confirmation email shortly.</p>
+                </div>
+            `;
+            
+            this.reset();
+        });
+
+        // Party Space Selection
+        let selectedSpace = null;
+
+        function selectSpace(space) {
+            selectedSpace = space;
+            document.querySelectorAll('.space-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+            document.getElementById('selectedSpace').value = space;
+        }
+
+        document.getElementById('partyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!selectedSpace) {
+                alert('Please select a space first!');
+                return;
+            }
+            
+            const name = document.getElementById('partyName').value;
+            const date = document.getElementById('partyDate').value;
+            const eventType = document.getElementById('eventType').value;
+            
+            const spaceNames = {
+                'lounge': 'Lounge Area',
+                'main': 'Main Hall',
+                'rooftop': 'Rooftop Terrace'
+            };
+            
+            document.getElementById('partySuccess').innerHTML = `
+                <div class="success-message">
+                    <h3>🎉 Party Space Reserved!</h3>
+                    <p>Congratulations, ${name}! The ${spaceNames[selectedSpace]} is reserved for your ${eventType}.</p>
+                    <p>Date: ${date}</p>
+                    <p>We'll contact you within 24 hours to finalize details!</p>
+                </div>
+            `;
+            
+            this.reset();
+            selectedSpace = null;
+            document.querySelectorAll('.space-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+        });
+
+        // Catering Functions
+        function addCatering(item, price) {
+            cateringCart.push({ item, price });
+            updateCateringCart();
+        }
+
+        function updateCateringCart() {
+            const cartDiv = document.getElementById('cateringCart');
+            const itemsDiv = document.getElementById('cateringItems');
+            const totalSpan = document.getElementById('cateringTotal');
+            
+            if (cateringCart.length === 0) {
+                cartDiv.style.display = 'none';
+                return;
+            }
+            
+            cartDiv.style.display = 'block';
+            
+            itemsDiv.innerHTML = cateringCart.map((item, index) => `
+                <div class="cart-item">
+                    <span>${item.item}</span>
+                    <div>
+                        <span style="margin-right: 15px;">${item.price}</span>
+                        <button class="add-btn" onclick="removeCatering(${index})" style="background: #dc2626;">Remove</button>
+                    </div>
+                </div>
+            `).join('');
+            
+            const total = cateringCart.reduce((sum, item) => sum + item.price, 0);
+            totalSpan.textContent = total.toFixed(2);
+        }
+
+        function removeCatering(index) {
+            cateringCart.splice(index, 1);
+            updateCateringCart();
+        }
+
+        document.getElementById('cateringForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            document.getElementById('cateringSuccess').innerHTML = `
+                <div class="success-message">
+                    <h3>✅ Catering Order Placed!</h3>
+                    <p>Your catering order has been confirmed!</p>
+                    <p>Total: ${cateringCart.reduce((sum, item) => sum + item.price, 0).toFixed(2)}</p>
+                    <p>We'll contact you to confirm delivery details.</p>
+                </div>
+            `;
+            
+            cateringCart = [];
+            updateCateringCart();
+            this.reset();
+        });
+
+        // Delivery Functions
+        function addToCart(item, price) {
+            deliveryCart.push({ item, price, quantity: 1 });
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartDiv = document.getElementById('deliveryCart');
+            const itemsDiv = document.getElementById('cartItems');
+            const totalSpan = document.getElementById('cartTotal');
+            
+            if (deliveryCart.length === 0) {
+                cartDiv.style.display = 'none';
+                return;
+            }
+            
+            cartDiv.style.display = 'block';
+            
+            itemsDiv.innerHTML = deliveryCart.map((item, index) => `
+                <div class="cart-item">
+                    <span>${item.item} x${item.quantity}</span>
+                    <div>
+                        <span style="margin-right: 15px;">${(item.price * item.quantity).toFixed(2)}</span>
+                        <button class="add-btn" onclick="removeFromCart(${index})" style="background: #dc2626;">Remove</button>
+                    </div>
+                </div>
+            `).join('');
+            
+            const total = deliveryCart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            totalSpan.textContent = total.toFixed(2);
+        }
+
+        function removeFromCart(index) {
+            deliveryCart.splice(index, 1);
+            updateCart();
+        }
+
+        document.getElementById('deliveryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const address = document.getElementById('deliveryAddress').value;
+            const total = deliveryCart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            document.getElementById('deliverySuccess').innerHTML = `
+                <div class="success-message">
+                    <h3>🚚 Order Confirmed!</h3>
+                    <p>Your order is on its way to:</p>
+                    <p><strong>${address}</strong></p>
+                    <p>Total: ${total.toFixed(2)}</p>
+                    <p>Estimated delivery: 30-45 minutes</p>
+                </div>
+            `;
+            
+            deliveryCart = [];
+            updateCart();
+            this.reset();
+        });
+    </script>
+</body>
+</html>
